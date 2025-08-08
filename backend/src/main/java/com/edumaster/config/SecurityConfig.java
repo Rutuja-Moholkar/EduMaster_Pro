@@ -111,9 +111,9 @@ public class SecurityConfig {
             // Configure authorization rules
             .authorizeHttpRequests(authz -> authz
                 // Public endpoints - no authentication required
-                .requestMatchers("/api/v1/auth/**").permitAll()
-                .requestMatchers("/api/v1/public/**").permitAll()
-                .requestMatchers("/api/v1/health").permitAll()
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/health").permitAll()
                 
                 // Swagger/OpenAPI documentation
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
@@ -122,25 +122,25 @@ public class SecurityConfig {
                 .requestMatchers("/favicon.ico", "/error").permitAll()
                 
                 // Course browsing - allow for all users (including non-authenticated)
-                .requestMatchers(HttpMethod.GET, "/api/v1/courses/public/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/categories/public/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/courses/public/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categories/public/**").permitAll()
                 
                 // Admin-only endpoints
-                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 
                 // Instructor endpoints
-                .requestMatchers("/api/v1/instructor/**").hasAnyRole("INSTRUCTOR", "ADMIN")
+                .requestMatchers("/instructor/**").hasAnyRole("INSTRUCTOR", "ADMIN")
                 
                 // Student endpoints (accessible by all authenticated users)
-                .requestMatchers("/api/v1/student/**").hasAnyRole("STUDENT", "INSTRUCTOR", "ADMIN")
+                .requestMatchers("/student/**").hasAnyRole("STUDENT", "INSTRUCTOR", "ADMIN")
                 
                 // User profile endpoints
-                .requestMatchers("/api/v1/users/profile/**").authenticated()
+                .requestMatchers("/users/profile/**").authenticated()
                 
                 // Course management endpoints
-                .requestMatchers(HttpMethod.POST, "/api/v1/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/courses/**").hasAnyRole("INSTRUCTOR", "ADMIN")
                 
                 // All other requests require authentication
                 .anyRequest().authenticated()
