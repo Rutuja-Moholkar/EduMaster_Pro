@@ -77,11 +77,11 @@ git --version
 
 ```bash
 # Clone the repository
-git clone <your-repository-url>
-cd "E learning Platform"
+git clone https://github.com/Rutuja-Moholkar/EduMaster_Pro.git
+cd EduMaster_Pro
 
 # Or if copying from USB/shared drive
-# Copy the entire "E learning Platform" folder to your desired location
+# Copy the entire "EduMaster_Pro" folder to your desired location
 ```
 
 ---
